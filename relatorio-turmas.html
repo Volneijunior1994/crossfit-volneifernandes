@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Turmas - Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        if (sessionStorage.getItem('usuarioLogado') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+
+    <header class="admin-header">
+        <h1>Painel Administrativo</h1>
+        <nav class="admin-nav">
+            <a href="admin.html">Início</a>
+            <a href="cadastro-aluno.html">Cadastrar Aluno</a>
+            <a href="relatorio-alunos.html">Ver Alunos</a>
+            <a href="cadastro-wod.html">Cadastrar WOD</a>
+            <a href="relatorio-wods.html">Ver WODs</a>
+            <a href="cadastro-turma.html">Cadastrar Turma</a>
+            <a href="relatorio-turmas.html">Ver Turmas</a>
+            <button id="logout-btn">Sair</button>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Relatório de Turmas Cadastradas</h2>
+        <div class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Nome da Turma</th>
+                        <th>Coach</th>
+                        <th>Vagas</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-turmas">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="admin-footer">
+       <p>&copy; 2025 CrossFit Box Volnei Fernandes - Área Administrativa</p>
+    </footer>
+
+    <script src="admin.js"></script>
+</body>
+</html>

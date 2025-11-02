@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - CrossFit Volnei Fernandes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-container">
+        <h2>Área Administrativa</h2>
+        <form id="login-form">
+            <div>
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" required>
+            </div>
+            
+            <button type="submit">Entrar</button>
+            <p id="login-error" class="error-message"></p>
+        </form>
+        <a href="index.html" class="back-link">Voltar para o site</a>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
