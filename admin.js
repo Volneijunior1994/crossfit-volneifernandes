@@ -1,16 +1,16 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  // LOGIN 
+   
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault(); 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            
+            const username = document.getElementById('username').value.trim(); 
+            const password = document.getElementById('password').value; 
             const errorElement = document.getElementById('login-error');
 
-            // Verificação de login
             if (username === 'Volnei' && password === '1994') {
                 
                 sessionStorage.setItem('usuarioLogado', 'true');
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
+
     const logoutButton = document.getElementById('logout-btn');
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
@@ -30,16 +30,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-   
 
-
+ 
     function getAlunosFromStorage() {
         return JSON.parse(localStorage.getItem('alunos')) || [];
     }
     function saveAlunosToStorage(alunos) {
         localStorage.setItem('alunos', JSON.stringify(alunos));
     }
-
 
     const formAluno = document.getElementById('form-aluno');
     if (formAluno) {
@@ -49,6 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = document.getElementById('aluno-email').value;
             const plano = document.getElementById('aluno-plano').value;
             const id = document.getElementById('aluno-id').value;
+            const errorElement = document.getElementById('form-aluno-error');
+
+            if (nome.trim() === '' || email.trim() === '' || plano === '') {
+                errorElement.textContent = 'Por favor, preencha todos os campos.';
+                errorElement.style.display = 'block';
+                return; 
+            } else {
+                errorElement.style.display = 'none';
+            }
 
             let alunos = getAlunosFromStorage();
 
@@ -63,16 +70,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             saveAlunosToStorage(alunos);
-            alert('Aluno salvo com sucesso!');
+            
+          
             window.location.href = 'relatorio-alunos.html'; 
         });
 
-    
+     
         document.getElementById('btn-cancelar-edicao').addEventListener('click', function() {
             resetFormAluno();
         });
 
-      
+   
         const alunoParaEditar = JSON.parse(localStorage.getItem('alunoParaEditar'));
         if (alunoParaEditar) {
             document.getElementById('aluno-id').value = alunoParaEditar.id;
@@ -90,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('aluno-id').value = '';
         document.getElementById('btn-salvar-aluno').textContent = 'Salvar';
         document.getElementById('btn-cancelar-edicao').style.display = 'none';
+        document.getElementById('form-aluno-error').style.display = 'none';
     }
 
  
@@ -116,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tabelaAlunosBody.appendChild(tr);
         });
 
-     
+    
         tabelaAlunosBody.querySelectorAll('.btn-excluir').forEach(button => {
             button.addEventListener('click', function() {
                 excluirAluno(this.getAttribute('data-id'));
@@ -130,11 +139,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function excluirAluno(id) {
-        if (!confirm('Tem certeza?')) return;
+        
         let alunos = getAlunosFromStorage();
         alunos = alunos.filter(a => a.id != id);
         saveAlunosToStorage(alunos);
         carregarTabelaAlunos(); 
+        showFeedbackMessage('Aluno excluído com sucesso!'); 
     }
 
     function editarAluno(id) {
@@ -145,9 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'cadastro-aluno.html';
     }
 
-   
+ 
 
-  
     function getWodsFromStorage() {
         return JSON.parse(localStorage.getItem('wods')) || [];
     }
@@ -155,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('wods', JSON.stringify(wods));
     }
 
- 
+   
     const formWod = document.getElementById('form-wod');
     if (formWod) {
         formWod.addEventListener('submit', function(event) {
@@ -164,6 +173,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const titulo = document.getElementById('wod-titulo').value;
             const descricao = document.getElementById('wod-descricao').value;
             const id = document.getElementById('wod-id').value;
+            const errorElement = document.getElementById('form-wod-error');
+
+        
+            if (data.trim() === '' || titulo.trim() === '' || descricao.trim() === '') {
+                errorElement.textContent = 'Por favor, preencha todos os campos.';
+                errorElement.style.display = 'block';
+                return; 
+            } else {
+                errorElement.style.display = 'none';
+            }
 
             let wods = getWodsFromStorage();
 
@@ -178,19 +197,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             saveWodsToStorage(wods);
-            alert('WOD salvo com sucesso!');
+            
+          
             window.location.href = 'relatorio-wods.html';
         });
 
-     
+      
         document.getElementById('btn-cancelar-edicao-wod').addEventListener('click', function() {
             formWod.reset();
             document.getElementById('wod-id').value = '';
             document.getElementById('btn-salvar-wod').textContent = 'Salvar';
             this.style.display = 'none';
+            document.getElementById('form-wod-error').style.display = 'none';
         });
 
-        
+     
         const wodParaEditar = JSON.parse(localStorage.getItem('wodParaEditar'));
         if (wodParaEditar) {
             document.getElementById('wod-id').value = wodParaEditar.id;
@@ -203,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
+   
     const tabelaWodsBody = document.getElementById('tabela-wods');
     if (tabelaWodsBody) {
         carregarTabelaWods();
@@ -226,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tabelaWodsBody.appendChild(tr);
         });
 
-      
+   
         tabelaWodsBody.querySelectorAll('.btn-excluir').forEach(button => {
             button.addEventListener('click', function() {
                 excluirWod(this.getAttribute('data-id'));
@@ -240,11 +261,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function excluirWod(id) {
-        if (!confirm('Tem certeza?')) return;
+     
         let wods = getWodsFromStorage();
         wods = wods.filter(w => w.id != id);
         saveWodsToStorage(wods);
         carregarTabelaWods();
+        showFeedbackMessage('WOD excluído com sucesso!'); 
     }
 
     function editarWod(id) {
@@ -255,8 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'cadastro-wod.html';
     }
     
-  
 
+ 
     function getTurmasFromStorage() {
         return JSON.parse(localStorage.getItem('turmas')) || [];
     }
@@ -264,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('turmas', JSON.stringify(turmas));
     }
 
-   
+
     const formTurma = document.getElementById('form-turma');
     if (formTurma) {
         formTurma.addEventListener('submit', function(event) {
@@ -273,6 +295,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const coach = document.getElementById('turma-coach').value;
             const vagas = document.getElementById('turma-vagas').value;
             const id = document.getElementById('turma-id').value;
+            const errorElement = document.getElementById('form-turma-error');
+
+      
+            if (nome.trim() === '' || coach.trim() === '' || vagas.trim() === '') {
+                errorElement.textContent = 'Por favor, preencha todos os campos.';
+                errorElement.style.display = 'block';
+                return; 
+            } else {
+                errorElement.style.display = 'none';
+            }
 
             let turmas = getTurmasFromStorage();
 
@@ -287,19 +319,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             saveTurmasToStorage(turmas);
-            alert('Turma salva com sucesso!');
+            
+         
             window.location.href = 'relatorio-turmas.html';
         });
 
-       
         document.getElementById('btn-cancelar-edicao-turma').addEventListener('click', function() {
             formTurma.reset();
             document.getElementById('turma-id').value = '';
             document.getElementById('btn-salvar-turma').textContent = 'Salvar';
             this.style.display = 'none';
+            document.getElementById('form-turma-error').style.display = 'none';
         });
 
-       
+
         const turmaParaEditar = JSON.parse(localStorage.getItem('turmaParaEditar'));
         if (turmaParaEditar) {
             document.getElementById('turma-id').value = turmaParaEditar.id;
@@ -335,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tabelaTurmasBody.appendChild(tr);
         });
 
-      
+
         tabelaTurmasBody.querySelectorAll('.btn-excluir').forEach(button => {
             button.addEventListener('click', function() {
                 excluirTurma(this.getAttribute('data-id'));
@@ -349,11 +382,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function excluirTurma(id) {
-        if (!confirm('Tem certeza?')) return;
+        
         let turmas = getTurmasFromStorage();
         turmas = turmas.filter(t => t.id != id);
         saveTurmasToStorage(turmas);
         carregarTabelaTurmas();
+        showFeedbackMessage('Turma excluída com sucesso!'); 
     }
 
     function editarTurma(id) {
@@ -362,6 +396,21 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!turma) return;
         localStorage.setItem('turmaParaEditar', JSON.stringify(turma));
         window.location.href = 'cadastro-turma.html';
+    }
+
+   
+    function showFeedbackMessage(message) {
+        const feedbackElement = document.getElementById('feedback-message');
+        if (feedbackElement) {
+            feedbackElement.textContent = message;
+            feedbackElement.style.display = 'block';
+            
+          
+            setTimeout(() => {
+                feedbackElement.style.display = 'none';
+                feedbackElement.textContent = '';
+            }, 3000);
+        }
     }
 
 }); 

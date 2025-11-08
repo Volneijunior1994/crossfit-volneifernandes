@@ -30,8 +30,11 @@
     <main>
         <section class="admin-form-container">
             <h3>Cadastro de Turma</h3>
-            <form id="form-turma" class="admin-form">
+            <form id="form-turma" class="admin-form" novalidate>
                 <input type="hidden" id="turma-id">
+                
+                <p id="form-turma-error" class="error-message" style="display:none; color:red; text-align:center;"></p>
+                
                 <div class="form-group">
                     <label for="turma-nome">Nome da Turma:</label>
                     <input type="text" id="turma-nome" placeholder="Ex: Turma das 18h" required>
@@ -51,7 +54,7 @@
     </main>
 
     <footer class="admin-footer">
-        <p>&copy; 2025 CrossFit Box Volnei Fernandes - Área Administrativa</p>
+        <p>&copy; 2025 CrossFit Box - Área Administrativa</p>
     </footer>
 
     <script src="admin.js"></script>

@@ -30,8 +30,11 @@
     <main>
         <section class="admin-form-container">
             <h3>Cadastro de Aluno</h3>
-            <form id="form-aluno" class="admin-form">
+            <form id="form-aluno" class="admin-form" novalidate>
                 <input type="hidden" id="aluno-id">
+                
+                <p id="form-aluno-error" class="error-message" style="display:none; color:red; text-align:center;"></p>
+                
                 <div class="form-group">
                     <label for="aluno-nome">Nome do Aluno:</label>
                     <input type="text" id="aluno-nome" required>
@@ -56,7 +59,7 @@
     </main>
 
     <footer class="admin-footer">
-        <p>&copy; 2025 CrossFit Box Volnei Fernandes - Área Administrativa</p>
+        <p>&copy; 2025 CrossFit Box - Área Administrativa</p>
     </footer>
 
     <script src="admin.js"></script>

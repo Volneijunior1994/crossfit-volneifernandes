@@ -30,8 +30,11 @@
     <main>
         <section class="admin-form-container">
             <h3>Cadastro de WOD (Workout of the Day)</h3>
-            <form id="form-wod" class="admin-form">
+            <form id="form-wod" class="admin-form" novalidate>
                 <input type="hidden" id="wod-id">
+                
+                <p id="form-wod-error" class="error-message" style="display:none; color:red; text-align:center;"></p>
+                
                 <div class="form-group">
                     <label for="wod-data">Data:</label>
                     <input type="date" id="wod-data" required>
@@ -51,7 +54,7 @@
     </main>
 
     <footer class="admin-footer">
-       <p>&copy; 2025 CrossFit Box Volnei Fernandes - Área Administrativa</p>
+        <p>&copy; 2025 CrossFit Box - Área Administrativa</p>
     </footer>
 
     <script src="admin.js"></script>
